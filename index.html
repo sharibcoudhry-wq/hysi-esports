@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HYSI ESPORTS — Championship Arena</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #07070a; color: #f8fafc; }
+    .font-gaming { font-family: 'Rajdhani', sans-serif; }
+    .neon-purple { box-shadow: 0 0 20px -3px rgba(168, 85, 247, 0.25); }
+    .neon-cyan { box-shadow: 0 0 20px -3px rgba(34, 211, 238, 0.25); }
+    .gold-glow { box-shadow: 0 0 25px -4px rgba(245, 158, 11, 0.35); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#07070a] text-slate-100">
+
+  <!-- TOP APP HEADER -->
+  <header class="sticky top-0 z-50 bg-[#0f1017]/95 backdrop-blur-md border-b border-[#232638] px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="showView('portalSelect')">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 p-[1.5px] flex items-center justify-center">
+        <div class="w-full h-full bg-[#0f1017] rounded-[6px] flex items-center justify-center font-gaming font-extrabold text-cyan-400 text-lg">H</div>
+      </div>
+      <div>
+        <h1 class="font-gaming font-black text-lg tracking-wider text-white leading-none">HYSI <span class="text-cyan-400">ESPORTS</span></h1>
+        <p class="text-[9px] uppercase tracking-widest text-purple-400 font-semibold">Official Battle Arena</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a id="telegramTopBtn" href="https://t.me" target="_blank" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#1f293d] border border-cyan-500/40 text-cyan-400 text-xs font-bold hover:bg-cyan-500/10 transition-all">
+        <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>Telegram</span>
+      </a>
+      <button onclick="showView('portalSelect')" class="px-2.5 py-1.5 rounded-lg bg-[#161824] border border-[#232638] text-gray-300 text-xs hover:text-white">Switch</button>
+    </div>
+  </header>
+
+  <!-- VIEW 1: PORTAL SELECTION (APP OPEN HOTI HAI YAHAN SE) -->
+  <section id="portalSelect" class="flex-1 flex flex-col justify-center items-center px-4 py-8 max-w-md mx-auto w-full space-y-6">
+    <div class="text-center space-y-2">
+      <div class="inline-block px-3 py-1 bg-purple-950/60 border border-purple-800 text-purple-300 text-[11px] font-bold rounded-full uppercase tracking-wider">Authentication Portal</div>
+      <h2 class="font-gaming font-extrabold text-3xl uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400">
+        Choose Your Role
+      </h2>
+      <p class="text-xs text-gray-400">Free Fire players enter the arena. Administrators authenticate with access codes.</p>
+    </div>
+
+    <div class="w-full space-y-4">
+      <!-- Player Account Button -->
+      <button onclick="showView('playerSection')" class="w-full p-5 rounded-2xl bg-[#12131a] border border-cyan-500/40 hover:border-cyan-400 text-left flex items-center justify-between group transition-all neon-cyan">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-cyan-400">Normal Access</span>
+          <h3 class="font-gaming font-bold text-2xl text-white group-hover:text-cyan-300">Player Account</h3>
+          <p class="text-xs text-gray-400 mt-1">Free custom tournaments, registered slots & Room IDs.</p>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:translate-x-1 transition-transform">➔</div>
+      </button>
+
+      <!-- Admin Account Button -->
+      <button onclick="openAdminAuth()" class="w-full p-5 rounded-2xl bg-[#12131a] border border-purple-500/40 hover:border-purple-400 text-left flex items-center justify-between group transition-all neon-purple">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-purple-400">Restricted Access</span>
+          <h3 class="font-gaming font-bold text-2xl text-white group-hover:text-purple-300">Admin Account</h3>
+          <p class="text-xs text-gray-400 mt-1">Super Admin (Owner) & Moderator Control Station.</p>
+        </div>
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:translate-x-1 transition-transform">🔒</div>
+      </button>
+    </div>
+  </section>
+
+  <!-- VIEW 2: ADMIN PASSWORD LOGIN DIALOG -->
+  <section id="adminAuthView" class="hidden flex-1 flex flex-col justify-center items-center px-4 py-8 max-w-sm mx-auto w-full space-y-5">
+    <div class="w-full bg-[#12131a] border border-[#232638] rounded-2xl p-6 space-y-4 neon-purple">
+      <div class="text-center space-y-1">
+        <h3 class="font-gaming font-extrabold text-2xl uppercase tracking-wider text-white">Enter Access Key</h3>
+        <p class="text-xs text-gray-400">Enter your designated Admin authentication passcode.</p>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-xs font-semibold text-gray-300">Admin Passcode</label>
+        <input type="password" id="adminPassInput" placeholder="Enter key..." class="w-full bg-[#07070a] border border-[#232638] rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500 font-mono tracking-widest text-center">
+        <p id="adminAuthError" class="hidden text-rose-400 text-xs text-center font-medium">Invalid Passcode! Verification Failed.</p>
+      </div>
+
+      <button onclick="verifyAdminLogin()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 active:scale-95 transition-all">
+        Authenticate Session
+      </button>
+
+      <button onclick="showView('portalSelect')" class="w-full py-2 text-xs text-gray-400 hover:text-white text-center block">
+        Cancel and return
+      </button>
+    </div>
+  </section>
+
+  <!-- VIEW 3: PLAYER SECTION (MATCHES & REGISTRATION) -->
+  <section id="playerSection" class="hidden flex-1 max-w-md mx-auto w-full px-4 py-6 space-y-6">
+    <!-- Notice Banner -->
+    <div class="bg-gradient-to-r from-purple-950/70 to-cyan-950/70 border border-purple-500/30 rounded-2xl p-4 flex items-center justify-between">
+      <div class="space-y-0.5">
+        <span class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Tournament Rules</span>
+        <h4 class="font-bold text-xs text-white">Strict Fair Play System</h4>
+        <p class="text-[10px] text-gray-300">Hackers, PC emulators & teaming lead to an immediate ban.</p>
+      </div>
+      <span class="text-2xl">🛡️</span>
+    </div>
+
+    <!-- Match Categories Tabs -->
+    <div class="flex gap-2 p-1 bg-[#12131a] rounded-xl border border-[#232638]">
+      <button onclick="switchMatchTab('free')" id="tabFreeBtn" class="flex-1 py-2 text-xs font-bold rounded-lg bg-purple-600 text-white transition-all">Free Tournaments</button>
+      <button onclick="switchMatchTab('paid')" id="tabPaidBtn" class="flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition-all">Paid Cups (Coming Soon)</button>
+    </div>
+
+    <!-- Free Matches List Container -->
+    <div id="freeMatchesList" class="space-y-4">
+      <!-- Dynamic cards rendered by JS -->
+    </div>
+
+    <!-- Paid Matches Container (Coming Soon) -->
+    <div id="paidMatchesList" class="hidden space-y-4">
+      <div class="bg-[#12131a] border border-amber-500/30 rounded-2xl p-6 text-center space-y-3 gold-glow">
+        <div class="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/40 mx-auto flex items-center justify-center text-amber-400 text-xl font-bold">💎</div>
+        <div class="space-y-1">
+          <span class="bg-amber-500/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Official Feature Status</span>
+          <h3 class="font-gaming font-extrabold text-2xl text-white">Cash Prize Pool Cups</h3>
+          <p class="text-xs text-gray-400 max-w-xs mx-auto">Paid custom tournaments with UPI entry fee and verified instant cash prize distributions are currently under integration.</p>
+        </div>
+        <div class="pt-2">
+          <span class="inline-block px-3 py-1 bg-amber-950/80 border border-amber-700/60 text-amber-300 text-xs font-semibold rounded-lg">Status: Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Modal Form -->
+    <div id="regModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="bg-[#12131a] border border-[#232638] rounded-2xl max-w-sm w-full p-5 space-y-4 neon-cyan">
+        <div class="flex justify-between items-center">
+          <div>
+            <h4 class="font-gaming font-bold text-lg text-white">Register for Slot</h4>
+            <p id="regModalMatchName" class="text-xs text-cyan-400 font-medium">Bermuda Cup</p>
+          </div>
+          <button onclick="closeRegModal()" class="text-gray-400 hover:text-white text-sm">✕</button>
+        </div>
+
+        <form id="playerEntryForm" onsubmit="submitPlayerRegistration(event)" class="space-y-3">
+          <div>
+            <label class="block text-[11px] text-gray-300 font-medium mb-1">In-Game Name (IGN)</label>
+            <input type="text" id="ignInput" required placeholder="e.g. HYSI_DESTROYER" class="w-full bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-[11px] text-gray-300 font-medium mb-1">Free Fire UID</label>
+            <input type="number" id="uidInput" required placeholder="e.g. 1098765432" class="w-full bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <div>
+            <label class="block text-[11px] text-gray-300 font-medium mb-1">WhatsApp Number</label>
+            <input type="tel" id="waInput" required placeholder="For slot notification" class="w-full bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold text-xs uppercase tracking-wider">
+            Confirm Slot Entry
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEW 4: ADMIN DASHBOARD (SUPER ADMIN & MODERATOR) -->
+  <section id="adminDashboard" class="hidden flex-1 max-w-lg mx-auto w-full px-4 py-6 space-y-6">
+    <!-- Admin Badge & Identity -->
+    <div class="bg-[#12131a] border border-[#232638] rounded-2xl p-4 flex items-center justify-between">
+      <div>
+        <div class="flex items-center gap-2">
+          <span id="adminRoleBadge" class="px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-amber-500 text-black">Super Admin</span>
+          <span class="text-xs text-emerald-400 font-medium">● System Online</span>
+        </div>
+        <h3 id="adminGreeting" class="font-gaming font-extrabold text-xl text-white mt-1">Owner Command Station</h3>
+      </div>
+      <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-rose-950/60 border border-rose-800 text-rose-300 text-xs font-semibold hover:bg-rose-900/60">Logout</button>
+    </div>
+
+    <!-- SUPER ADMIN ONLY PANEL (harshukagulam) -->
+    <div id="superAdminControls" class="space-y-5">
+      <!-- Telegram Channel Updater -->
+      <div class="bg-[#12131a] border border-[#232638] rounded-2xl p-4 space-y-3">
+        <h4 class="font-bold text-xs uppercase tracking-wider text-cyan-400">Update Community Telegram Link</h4>
+        <div class="flex gap-2">
+          <input type="url" id="superTgLinkInput" placeholder="https://t.me/yourchannel" class="flex-1 bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+          <button onclick="updateTelegramLink()" class="px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold">Save Link</button>
+        </div>
+      </div>
+
+      <!-- Create Match Panel -->
+      <div class="bg-[#12131a] border border-[#232638] rounded-2xl p-4 space-y-3">
+        <h4 class="font-bold text-xs uppercase tracking-wider text-purple-400">Host New Custom Match</h4>
+        <form onsubmit="createNewMatch(event)" class="space-y-3">
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="mTitle" required placeholder="Tournament Name" class="bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white">
+            <input type="text" id="mMap" required placeholder="Map (e.g. Bermuda)" class="bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="mTime" required placeholder="Match Time (e.g. 08:30 PM)" class="bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white">
+            <input type="text" id="mUnlockTime" required placeholder="Unlock At (e.g. 08:15 PM)" class="bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="mRoomId" placeholder="Room ID (Keep blank if later)" class="bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white">
+            <input type="text" id="mRoomPass" placeholder="Room Pass (Keep blank if later)" class="bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white">
+          </div>
+          <button type="submit" class="w-full py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider">Publish Free Match</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SHARED CONTROLS (SUPER ADMIN + CHHOTA ADMIN: hysi0821) -->
+    <!-- Room Credentials & Scammer Blocker -->
+    <div class="bg-[#12131a] border border-[#232638] rounded-2xl p-4 space-y-4">
+      <div>
+        <h4 class="font-bold text-xs uppercase tracking-wider text-white">Room Credentials & Quick Dispatch</h4>
+        <p class="text-[11px] text-gray-400">Available to Super Admin and Moderators to update Room ID/Pass before match start.</p>
+      </div>
+      <div id="adminMatchCredsList" class="space-y-3">
+        <!-- Rendered matches with quick edit -->
+      </div>
+    </div>
+
+    <!-- Registered Players & Ban / Block Section -->
+    <div class="bg-[#12131a] border border-[#232638] rounded-2xl p-4 space-y-4">
+      <div>
+        <h4 class="font-bold text-xs uppercase tracking-wider text-rose-400">Registered Players & Anti-Scammer Enforcement</h4>
+        <p class="text-[11px] text-gray-400">Block spammers or hackers by Free Fire UID to revoke access immediately.</p>
+      </div>
+
+      <div class="flex gap-2">
+        <input type="number" id="blockUidInput" placeholder="Enter UID to blacklist..." class="flex-1 bg-[#07070a] border border-[#232638] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-rose-500">
+        <button onclick="blockScammerUid()" class="px-3 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold">Ban UID</button>
+      </div>
+
+      <!-- Registered Players Roster -->
+      <div class="space-y-2">
+        <span class="text-[11px] text-gray-400 font-semibold uppercase tracking-wider">Recent Registrations</span>
+        <div id="playerRoster" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+          <!-- Dynamic registrations list -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAVASCRIPT LOGIC ENGINE -->
+  <script>
+    // System Data Store
+    let currentRole = null; // 'super' or 'mod'
+    let telegramLink = "https://t.me/hysi_esports";
+    let bannedUIDs = ["999999999", "111111111"]; // Default blocked scammers
+
+    let matches = [
+      {
+        id: 1,
+        title: "Bermuda Rush Cup #01",
+        map: "Bermuda",
+        type: "Squad",
+        matchTime: "08:30 PM",
+        unlockTime: "08:15 PM",
+        roomId: "5489210",
+        roomPass: "hysi22",
+        slotsMax: 48,
+        registeredCount: 22
+      },
+      {
+        id: 2,
+        title: "Purgatory Clash #02",
+        map: "Purgatory",
+        type: "Squad",
+        matchTime: "09:30 PM",
+        unlockTime: "09:15 PM",
+        roomId: "",
+        roomPass: "",
+        slotsMax: 48,
+        registeredCount: 14
+      }
+    ];
+
+    let registeredPlayers = [
+      { id: 101, name: "HYSI_DEADSHOT", uid: "209485712", wa: "9876543210", matchId: 1 },
+      { id: 102, name: "SHADOW_FF", uid: "874512903", wa: "9812345678", matchId: 1 }
+    ];
+
+    let selectedMatchForReg = null;
+
+    // View Manager
+    function showView(viewId) {
+      ['portalSelect', 'adminAuthView', 'playerSection', 'adminDashboard'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(viewId).classList.remove('hidden');
+
+      if (viewId === 'playerSection') renderPlayerMatches();
+      if (viewId === 'adminDashboard') renderAdminPanel();
+    }
+
+    // Role Selection & Authentication
+    function openAdminAuth() {
+      document.getElementById('adminPassInput').value = '';
+      document.getElementById('adminAuthError').classList.add('hidden');
+      showView('adminAuthView');
+    }
+
+    function verifyAdminLogin() {
+      const pass = document.getElementById('adminPassInput').value.trim();
+      if (pass === 'harshukagulam') {
+        currentRole = 'super';
+        showView('adminDashboard');
+      } else if (pass === 'hysi0821') {
+        currentRole = 'mod';
+        showView('adminDashboard');
+      } else {
+        document.getElementById('adminAuthError').classList.remove('hidden');
+      }
+    }
+
+    function logoutAdmin() {
+      currentRole = null;
+      showView('portalSelect');
+    }
+
+    // Tab Switching for Players
+    function switchMatchTab(tab) {
+      if (tab === 'free') {
+        document.getElementById('freeMatchesList').classList.remove('hidden');
+        document.getElementById('paidMatchesList').classList.add('hidden');
+        document.getElementById('tabFreeBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg bg-purple-600 text-white transition-all";
+        document.getElementById('tabPaidBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition-all";
+      } else {
+        document.getElementById('freeMatchesList').classList.add('hidden');
+        document.getElementById('paidMatchesList').classList.remove('hidden');
+        document.getElementById('tabPaidBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg bg-amber-600 text-white transition-all";
+        document.getElementById('tabFreeBtn').className = "flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition-all";
+      }
+    }
+
+    // Render Matches on Player View
+    function renderPlayerMatches() {
+      const container = document.getElementById('freeMatchesList');
+      container.innerHTML = '';
+
+      matches.forEach(m => {
+        const hasCredentials = m.roomId && m.roomPass;
+        const card = document.createElement('div');
+        card.className = "bg-[#12131a] border border-[#232638] rounded-2xl overflow-hidden neon-purple";
+        card.innerHTML = `
+          <div class="bg-gradient-to-r from-purple-950/60 to-[#12131a] p-3 border-b border-[#232638] flex items-center justify-between text-xs">
+            <span class="bg-purple-600 text-white font-bold px-2 py-0.5 rounded text-[10px] tracking-wider uppercase">${m.type} • ${m.map}</span>
+            <span class="text-emerald-400 font-semibold text-[11px]">● Free Entry</span>
+          </div>
+          <div class="p-4 space-y-3">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="font-bold text-base text-white">${m.title}</h3>
+                <p class="text-xs text-gray-400">Match Starts: <span class="text-white font-semibold">${m.matchTime}</span></p>
+              </div>
+              <span class="text-cyan-400 text-xs font-semibold bg-cyan-950/40 px-2.5 py-1 rounded border border-cyan-800">Verified Slots</span>
+            </div>
+
+            <!-- Credentials Lock / Unlock Area -->
+            <div class="p-3 rounded-xl bg-[#07070a] border border-[#232638] flex items-center justify-between">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-gray-400">Room Credentials</span>
+                <p class="text-xs ${hasCredentials ? 'text-emerald-400 font-mono font-bold' : 'text-amber-400 font-medium'}">
+                  ${hasCredentials ? `ID: ${m.roomId} | Pass: ${m.roomPass}` : `🔒 Unlocks at ${m.unlockTime}`}
+                </p>
+              </div>
+              <span class="text-xs text-gray-500 font-mono">${hasCredentials ? 'READY' : 'WAITING'}</span>
+            </div>
+
+            <div class="space-y-1">
+              <div class="flex justify-between text-xs text-gray-400">
+                <span>Slots Registered</span>
+                <span class="text-white font-mono">${m.registeredCount} / ${m.slotsMax}</span>
+              </div>
+              <div class="w-full bg-[#07070a] h-2 rounded-full overflow-hidden border border-[#232638]">
+                <div class="bg-gradient-to-r from-purple-500 to-cyan-400 h-full rounded-full" style="width: ${(m.registeredCount / m.slotsMax) * 100}%"></div>
+              </div>
+            </div>
+
+            <button onclick="openRegistrationModal(${m.id})" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 hover:brightness-110 active:scale-95 text-white font-bold text-xs uppercase tracking-wider transition-all">
+              Join Tournament Free
+            </button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Registration Modal Flow
+    function openRegistrationModal(matchId) {
+      selectedMatchForReg = matches.find(m => m.id === matchId);
+      document.getElementById('regModalMatchName').innerText = selectedMatchForReg.title;
+      document.getElementById('regModal').classList.remove('hidden');
+    }
+
+    function closeRegModal() {
+      document.getElementById('regModal').classList.add('hidden');
+    }
+
+    function submitPlayerRegistration(e) {
+      e.preventDefault();
+      const ign = document.getElementById('ignInput').value.trim();
+      const uid = document.getElementById('uidInput').value.trim();
+      const wa = document.getElementById('waInput').value.trim();
+
+      // Anti-Scam / Ban Enforcement Check
+      if (bannedUIDs.includes(uid)) {
+        alert("⚠️ ACCESS BLOCKED: This Free Fire UID has been blacklisted by HYSI ESPORTS Administration.");
+        return;
+      }
+
+      registeredPlayers.unshift({
+        id: Date.now(),
+        name: ign,
+        uid: uid,
+        wa: wa,
+        matchId: selectedMatchForReg.id
+      });
+
+      selectedMatchForReg.registeredCount++;
+      alert(`Registration Confirmed for ${ign}! Room credentials will display on your screen at ${selectedMatchForReg.unlockTime}.`);
+
+      document.getElementById('playerEntryForm').reset();
+      closeRegModal();
+      renderPlayerMatches();
+    }
+
+    // Admin Dashboard Render Logic
+    function renderAdminPanel() {
+      const isSuper = currentRole === 'super';
+      
+      document.getElementById('adminRoleBadge').className = isSuper 
+        ? "px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-amber-500 text-black"
+        : "px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase bg-cyan-600 text-white";
+      document.getElementById('adminRoleBadge').innerText = isSuper ? "SUPER ADMIN (OWNER)" : "MODERATOR ADMIN";
+      
+      document.getElementById('adminGreeting').innerText = isSuper ? "Headquarters Control Desk" : "Moderator Desk";
+      
+      // Super admin specific section visibility
+      if (isSuper) {
+        document.getElementById('superAdminControls').classList.remove('hidden');
+      } else {
+        document.getElementById('superAdminControls').classList.add('hidden');
+      }
+
+      // Render Match Credentials List for Quick Dispatch
+      const credsContainer = document.getElementById('adminMatchCredsList');
+      credsContainer.innerHTML = '';
+      matches.forEach(m => {
+        const item = document.createElement('div');
+        item.className = "p-3 rounded-xl bg-[#07070a] border border-[#232638] space-y-2";
+        item.innerHTML = `
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-bold text-white">${m.title}</span>
+            <span class="text-gray-400 font-mono text-[10px]">Unlock: ${m.unlockTime}</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="text" id="editRoomId_${m.id}" value="${m.roomId}" placeholder="Room ID" class="bg-[#12131a] border border-[#232638] rounded px-2 py-1 text-xs text-white">
+            <input type="text" id="editRoomPass_${m.id}" value="${m.roomPass}" placeholder="Room Password" class="bg-[#12131a] border border-[#232638] rounded px-2 py-1 text-xs text-white">
+          </div>
+          <button onclick="saveRoomCredentials(${m.id})" class="w-full py-1 bg-cyan-600 hover:bg-cyan-500 rounded text-white text-[11px] font-bold">
+            Publish Room ID & Password
+          </button>
+        `;
+        credsContainer.appendChild(item);
+      });
+
+      // Render Player Roster
+      renderPlayerRoster();
+    }
+
+    function saveRoomCredentials(matchId) {
+      const match = matches.find(m => m.id === matchId);
+      const newId = document.getElementById(`editRoomId_${matchId}`).value.trim();
+      const newPass = document.getElementById(`editRoomPass_${matchId}`).value.trim();
+      
+      match.roomId = newId;
+      match.roomPass = newPass;
+      alert(`Credentials for ${match.title} successfully updated! Players will see this immediately.`);
+    }
+
+    function renderPlayerRoster() {
+      const rosterContainer = document.getElementById('playerRoster');
+      rosterContainer.innerHTML = '';
+      
+      if (registeredPlayers.length === 0) {
+        rosterContainer.innerHTML = '<p class="text-xs text-gray-500">No players registered yet.</p>';
+        return;
+      }
+
+      registeredPlayers.forEach(p => {
+        const row = document.createElement('div');
+        row.className = "flex items-center justify-between p-2 rounded-lg bg-[#07070a] border border-[#232638] text-xs";
+        row.innerHTML = `
+          <div>
+            <span class="font-bold text-white">${p.name}</span>
+            <span class="text-gray-400 text-[10px] block font-mono">UID: ${p.uid} • WA: ${p.wa}</span>
+          </div>
+          <button onclick="banFromRoster('${p.uid}')" class="px-2 py-1 bg-rose-950 border border-rose-800 text-rose-300 hover:bg-rose-900 rounded text-[10px] font-semibold">
+            Ban Scammer
+          </button>
+        `;
+        rosterContainer.appendChild(row);
+      });
+    }
+
+    // Scammer Ban Functions
+    function blockScammerUid() {
+      const uid = document.getElementById('blockUidInput').value.trim();
+      if (!uid) return;
+      if (!bannedUIDs.includes(uid)) {
+        bannedUIDs.push(uid);
+        alert(`UID ${uid} has been blacklisted from all tournaments.`);
+      }
+      document.getElementById('blockUidInput').value = '';
+    }
+
+    function banFromRoster(uid) {
+      if (!bannedUIDs.includes(uid)) {
+        bannedUIDs.push(uid);
+      }
+      registeredPlayers = registeredPlayers.filter(p => p.uid !== uid);
+      alert(`Player UID ${uid} blocked and removed from the active tournament roster.`);
+      renderPlayerRoster();
+    }
+
+    // Super Admin Exclusive Actions
+    function updateTelegramLink() {
+      const newLink = document.getElementById('superTgLinkInput').value.trim();
+      if (newLink) {
+        telegramLink = newLink;
+        document.getElementById('telegramTopBtn').href = newLink;
+        alert("Community Telegram Channel link updated across the entire platform!");
+      }
+    }
+
+    function createNewMatch(e) {
+      e.preventDefault();
+      const title = document.getElementById('mTitle').value.trim();
+      const map = document.getElementById('mMap').value.trim();
+      const time = document.getElementById('mTime').value.trim();
+      const unlockTime = document.getElementById('mUnlockTime').value.trim();
+      const roomId = document.getElementById('mRoomId').value.trim();
+      const roomPass = document.getElementById('mRoomPass').value.trim();
+
+      matches.push({
+        id: Date.now(),
+        title: title,
+        map: map,
+        type: "Squad",
+        matchTime: time,
+        unlockTime: unlockTime,
+        roomId: roomId,
+        roomPass: roomPass,
+        slotsMax: 48,
+        registeredCount: 0
+      });
+
+      alert(`Match "${title}" published successfully!`);
+      e.target.reset();
+      renderAdminPanel();
+    }
+  </script>
+</body>
+</html>
